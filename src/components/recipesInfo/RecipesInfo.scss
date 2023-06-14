@@ -1,0 +1,125 @@
+.resipesInfo {
+  margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    font-size: 35px;
+    margin-bottom: 20px;
+    color: #fd0000;
+  }
+
+  &__container {
+    max-width: 800px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+
+    &-image {
+      margin-bottom: 20px;
+      width: 300px;
+      box-shadow: 0 0 5px 3px #fb7070;
+      border-radius: 20px;
+    }
+
+    &-ingr {
+      max-width: 50%;
+      width: 100%;
+
+      &-ingredients {
+        font-size: 25px;
+        margin: 15px;
+        text-align: center;
+      }
+    
+      &-list {
+        margin-bottom: 20px;
+        display: flex;
+        flex-wrap: wrap;
+    
+        &-item {
+          margin: 10px;
+          text-align: center;
+          display: flex;
+          cursor: pointer;
+
+        }
+      }
+    }
+
+  }
+
+  
+
+  &__description {
+    max-width: 900px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  &__revue {
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &-rating {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &-star {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    &-like {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+  }
+
+  
+
+  &__list-step {
+    max-width: 900px;
+    width: 100%;
+    
+
+    &-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+
+      &-number {
+        margin-bottom: 20px;
+        font-size: 30px;
+        font-family: 700;
+        color: #fff;
+        background-color: #fd0000;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+      }
+
+      &-description {
+        text-align: center;
+      }
+    }
+  }
+}

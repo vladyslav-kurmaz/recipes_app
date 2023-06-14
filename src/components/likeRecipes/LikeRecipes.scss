@@ -1,0 +1,24 @@
+.likeRecipes {
+  margin: 0 auto;
+  margin-top: 15px;
+  margin-bottom: 20px;
+  max-width: 1200px;
+  width: 100%;
+  padding: 10px;
+
+  border: 2px solid #ff3737;
+  border-radius: 20px;
+
+  &__title {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 25px;
+
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
