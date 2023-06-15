@@ -2,7 +2,7 @@ import RecipesInfo from "../components/recipesInfo/RecipesInfo";
 
 const RecipesPage = () => {
   return (
-    <RecipesInfo/>
+    <RecipesInfo key={5}/>
   )
 }
 

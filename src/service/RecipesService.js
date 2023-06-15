@@ -9,10 +9,20 @@ const RecipesService = () => {
     return res
   }
 
-  
+  const getUsersInfo = () => {
+    const res = request(`${_baceUrl}users`);
+    return res;
+  }
+
+  const postUsersInfo = (body) => {
+    const res = request(`${_baceUrl}users`, 'POST', body);
+    return res;
+  }
 
   return {
-    getAllRecipes
+    getAllRecipes,
+    getUsersInfo,
+    postUsersInfo
   }
 }
 

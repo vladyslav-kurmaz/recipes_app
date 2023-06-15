@@ -38,6 +38,7 @@
         text-align: center;
       }
     
+
       &-list {
         margin-bottom: 20px;
         display: flex;
@@ -90,7 +91,11 @@
     }
   }
 
-  
+  &__step {
+    font-size: 25px;
+    margin: 15px;
+    text-align: center;
+  }
 
   &__list-step {
     max-width: 900px;

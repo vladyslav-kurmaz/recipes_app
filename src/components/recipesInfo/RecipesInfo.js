@@ -1,62 +1,81 @@
-import './RecipesInfo.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
-import noLike from '../../image/like.webp';
-import like from '../../image/love.webp';
+import noLikeIcon from '../../image/like.webp';
+import likeIcon from '../../image/love.webp';
 import star from '../../image/star.webp';
 
+import './RecipesInfo.scss';
+
 const RecipesInfo = () => {
-  return (
-    <main className='resipesInfo'>
-      <h1 className='resipesInfo__title'>Свинячі медальйони з гірчицею</h1>
+  const dispatch = useDispatch();
+  const {recipes} = useSelector(state => state.recipes);
+  const {activeId} = useSelector(state => state.user);
+  const {recipesId} = useParams();
+  console.log(recipesId);
 
-      <div className="resipesInfo__revue">
-          <span className="resipesInfo__revue-rating">5 
-            <img className="resipesInfo__revue-rating-star" src={star} alt="rating" />
-          </span>
-          <img className="resipesInfo__revue-like" src={noLike} alt="Like recipes" />
-        </div>
-      <div className="resipesInfo__container">
-        <img className='resipesInfo__container-image' src="https://www.themealdb.com/images/media/meals/va668f1683209318.jpg" alt="" />
-        <div className="resipesInfo__container-ingr">
-          <h3 className="resipesInfo__container-ingr-ingredients">Інгрідієнти</h3>
-          <ul className="resipesInfo__container-ingr-list">
-            <li className="resipesInfo__container-ingr-list-item">
-              {/* <div className="mainPage__recipes-item-container-ingredients-list-item-input">
-                <input type="checkbox" id="checkbox-ingredients" className="recipes-item-container-ingredients-list-item-input-checkbox"/>
-                <label htmlFor="checkbox-ingredients" className="recipes-item-container-ingredients-list-item-input-checkbox-label"></label>
-              </div> */}
-              <span className="resipesInfo__container-ingr-list-item-text">Сdfgfdgdgіль</span>
-              
-            </li>
-            <li className="resipesInfo__container-ingr-list-item">
-              <div className="mainPage__recipes-item-container-ingredients-list-item-input">
-                <input type="checkbox" id="checkbox-ingredients" className="recipes-item-container-ingredients-list-item-input-checkbox"/>
-                <label htmlFor="checkbox-ingredients" className="recipes-item-container-ingredients-list-item-input-checkbox-label"></label>
-              </div>
-              <span className="resipesInfo__container-ingr-list-item-text">Сdfgfdgdgіль</span>
-              
-            </li>
-                        
-          </ul>
-        </div>
-        
-      </div>
-      
-      
-      <p className="resipesInfo__description">Свинячі медальйони, справжня святкова страва, яку нескладно приготувати у каструлі або на сковороді. Для цієї страви не потрібні особливі хитрощі та складні кулінарні техніки. Головне завдання – не пересушити м’ясо, зберегти м’якість волокон і підібрати відповідний супровід. У цьому рецепті приготуємо медальйони з гірчицею.</p>
-      
-      
+  const selectRecip = () => {
+    return recipes.map(item => {
+      console.log(item);
+      if (item._id === recipesId) {
+        const {title, rating, image, like, description, ingredients, instructions} = item
+        const ingr = ingredients.map((item, i) => (
+          <li className="resipesInfo__container-ingr-list-item" key={i + 20}>
+            {/* <div className="mainPage__recipes-item-container-ingredients-list-item-input">
+              <input type="checkbox" id="checkbox-ingredients" className="recipes-item-container-ingredients-list-item-input-checkbox"/>
+              <label htmlFor="checkbox-ingredients" className="recipes-item-container-ingredients-list-item-input-checkbox-label"></label>
+            </div> */}
+            <span className="resipesInfo__container-ingr-list-item-text">{item}</span>
+            
+          </li>
+        ));
 
-      <ul className="resipesInfo__list-step">
-        <li className='resipesInfo__list-step-item'>
-          <span className='resipesInfo__list-step-item-number'>1</span>
-          <p className="resipesInfo__list-step-item-description">
-            Свинячі медальйони, справжня святкова страва, яку нескладно приготувати у каструлі або на сковороді. Для цієї страви не потрібні особливі хитрощі та складні кулінарні техніки. Головне завдання – не пересушити м’ясо, зберегти м’якість волокон і підібрати відповідний супровід. У цьому рецепті приготуємо медальйони з гірчицею
-          </p>
-        </li>
-      </ul>
-    </main>
-  );
+        const inst = instructions.map((item, i) => (
+          <li className='resipesInfo__list-step-item' key={i + 200}>
+            <span className='resipesInfo__list-step-item-number'>{i + 1}</span>
+            <p className="resipesInfo__list-step-item-description">
+              {item}
+            </p>
+          </li>
+        ));
+
+        return (
+          <main className='resipesInfo' key={1}>
+            <h1 className='resipesInfo__title' key={2}>{title}</h1>
+    
+            <div className="resipesInfo__revue" key={3}>
+              <span className="resipesInfo__revue-rating" key={4}>{rating} 
+                <img className="resipesInfo__revue-rating-star" key={5} src={star} alt="rating" />
+              </span>
+              {activeId ? <img className="resipesInfo__revue-like" key={6} src={like ? likeIcon : noLikeIcon} alt="Like recipes" /> : null}
+            </div>
+            <div className="resipesInfo__container" key={7}>
+              <img className='resipesInfo__container-image' key={8} src={image} alt={title} />
+              <div className="resipesInfo__container-ingr" key={9}>
+                <h3 className="resipesInfo__container-ingr-ingredients" key={10}>Інгрідієнти</h3>
+                <ul className="resipesInfo__container-ingr-list" key={11}>
+                  {ingr}        
+                </ul>
+              </div>  
+            </div>
+            
+            <p className="resipesInfo__description" key={12}>{description ? description : 'Цей рецепт без опису'}</p>
+            
+            <h3 className="resipesInfo__step" key={13}>Інструкції</h3>
+            <ul className="resipesInfo__list-step" key={14}>
+              {inst}
+            </ul>
+          </main>
+        )
+      } else {
+        return null 
+      }
+       
+    })
+  }
+
+  return selectRecip()
+    
 }
 
 export default RecipesInfo;

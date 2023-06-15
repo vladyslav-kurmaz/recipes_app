@@ -1,53 +1,50 @@
-import { useEffect } from "react";
-import RecipesService from "../../service/RecipesService";
+
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import './RecipesItem.scss';
 
-import noLike from '../../image/like.webp';
-import like from '../../image/love.webp';
+import noLikeIcon from '../../image/like.webp';
+import likeIcon from '../../image/love.webp';
 import star from '../../image/star.webp';
 
-const RecipesItem = () => {
+const RecipesItem = ({data}) => {
+  const {activeId} = useSelector(state => state.user)
+  return data?.map(item => {
+    const {_id, title, description, ingredients, rating, image, like} = item;
+    const ingr = ingredients.map((item, i) => {
+      return (
+        <li className="mainPage__recipes-item-container-ingredients-list-item" key={i}>        
+          <span className="recipes-item-container-ingredients-list-item-text">{item}</span>
+        </li>
+      )
+    })
 
-  useEffect(() => {
-    getAllRecipes()
-      .then(users => console.log(users))
-  }, [])
+    return (
+      <li className="mainPage__recipes-item" key={_id}>
+        <div className="mainPage__recipes-item-container">
+          <div className="mainPage__recipes-item-container-revue">
+            <span className="mainPage__recipes-item-container-revue-rating">{rating}
+              <img className="mainPage__recipes-item-container-revue-rating-star" src={star} alt="rating" />
+            </span>
+            {activeId ? <img className="mainPage__recipes-item-container-revue-like" src={like ? likeIcon : noLikeIcon} alt="Like recipes" /> : null}
+          </div>
+            <h2 className="mainPage__recipes-item-container-link-title">{title}</h2>
+            <img src={image} alt={title} className="mainPage__recipes-item-container-link-page"/>
+            <p className="mainPage__recipes-item-container-link-description">{description}</p>
+        
+          <div className="mainPage__recipes-item-container-ingredients">
+            <h3 className="mainPage__recipes-item-container-ingredients-title">Інгрідієнти</h3>
+            <ul className="mainPage__recipes-item-container-ingredients-list">
+              {ingr}
+            </ul>
+          </div>
 
-  const {getAllRecipes} = RecipesService();
-
-  return (
-    <li className="mainPage__recipes-item">
-      <div className="mainPage__recipes-item-container">
-        <div className="mainPage__recipes-item-container-revue">
-          <span className="mainPage__recipes-item-container-revue-rating">5 
-            <img className="mainPage__recipes-item-container-revue-rating-star" src={star} alt="rating" />
-          </span>
-          <img className="mainPage__recipes-item-container-revue-like" src={noLike} alt="Like recipes" />
+          <Link to={activeId ? `/${activeId}/${_id}` : `/recipe/${_id}`} key={_id} className="mainPage__recipes-item-container-button">Детальніше</Link>
         </div>
-        <Link to='/id' className="mainPage__recipes-item-container-link">
-          <h2 className="mainPage__recipes-item-container-link-title">Свинячі медальйони з гірчицею</h2>
-          <img src="https://www.themealdb.com/images/media/meals/va668f1683209318.jpg" alt="" className="mainPage__recipes-item-container-link-page"/>
-          <p className="mainPage__recipes-item-container-link-description">Свинячі медальйони, справжня святкова страва, яку нескладно приготувати у каструлі або на сковороді. Для цієї страви не потрібні особливі хитрощі та складні кулінарні техніки. Головне завдання – не пересушити м’ясо, зберегти м’якість волокон і підібрати відповідний супровід. У цьому рецепті приготуємо медальйони з гірчицею.</p>
-        </Link>
-       
-        <div className="mainPage__recipes-item-container-ingredients">
-          <h3 className="mainPage__recipes-item-container-ingredients-title">Інгрідієнти</h3>
-          <ul className="mainPage__recipes-item-container-ingredients-list">
-            <li className="mainPage__recipes-item-container-ingredients-list-item">
-              {/* <div className="mainPage__recipes-item-container-ingredients-list-item-input">
-                <input type="checkbox" id="checkbox-ingredients" className="recipes-item-container-ingredients-list-item-input-checkbox"/>
-                <label htmlFor="checkbox-ingredients" className="recipes-item-container-ingredients-list-item-input-checkbox-label"></label>
-              </div> */}
-              
-              <span className="recipes-item-container-ingredients-list-item-text">Сdfgfdgdgіль</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </li>
-  )
+      </li>
+    )
+  })
 }
 
 export default RecipesItem;

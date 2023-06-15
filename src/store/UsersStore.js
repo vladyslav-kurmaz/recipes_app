@@ -1,17 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  user: [],
+  user: null,
   usersLoadingStatus: 'idle',
   activeId: null,
 }
 
-const recipesSlice = createSlice({
-  name: 'users',
+const usersSlice = createSlice({
+  name: 'user',
   initialState,
   reducers: {
-    changeUserLoadingStatus: (state, action) => {
+    changeUserStatus: (state, action) => {
       state.usersLoadingStatus = action.payload;
+    },
+    changeUserSuccess: (state, action) => {
+      state.user = action.payload
     },
     updateActiveUser: (state, action) => {
       state.activeId = action.payload
@@ -20,11 +23,12 @@ const recipesSlice = createSlice({
   }
 })
 
-const {actions, reducer} = recipesSlice();
+const {actions, reducer} = usersSlice;
 
 export default reducer;
 
 export const {
-  changeUserLoadingStatus,
+  changeUserStatus,
+  changeUserSuccess,
   updateActiveUser
 } = actions;

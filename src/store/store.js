@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import recipes from './RecipesStore';
+import user from './UsersStore';
 
 const stringMiddleware = (store) => (next) => (action) => {
     if (typeof action === 'string') {

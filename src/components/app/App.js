@@ -13,14 +13,18 @@ function App() {
   return (
     <Router>
       <Header/>
-      {/* <CreateNewRecipes/> */}
+      <CreateNewRecipes/>
       <Routes>
-        <Route path='/' element={<MainPage/>}/>
-        <Route path='/login' element={<Login login={true}/>}/>
-        <Route path='/singup' element={<Login login={false}/>}/>
-        <Route path='/myrecipes' element={<MyRecipesPage/>}/>
-        <Route path='/:recipesId' element={<RecipesPage/>}/>
-        <Route path='/myrecipes/:recipesId' element={<RecipesPage/>}/>
+        <Route exact path='/' element={<MainPage/>}/>
+        <Route exact path='/:userId' element={<MainPage/>}/>
+        <Route exact path='/login' element={<Login login={true}/>}/>
+        <Route exact path='/singup' element={<Login login={false}/>}/>
+        <Route exact path='/:userId/myrecipes' element={<MyRecipesPage/>}/>
+        <Route exact path='/:userId/:recipesId' element={<RecipesPage/>}/>
+        <Route exact path='/recipe/:recipesId' element={<RecipesPage/>}/>
+        
+        {/* <Route exact path='/:userId/myrecipes/:recipesId' element={<RecipesPage/>}/> */}
+        {/* <Route path='/:userId/myrecipes/:recipesId' element={<RecipesPage/>}/> */}
       </Routes>
 
     </Router>

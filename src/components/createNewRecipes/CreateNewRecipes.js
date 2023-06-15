@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {FormControl, TextField, MenuItem, InputLabel, Select, Button } from '@mui/material';
-
+import { useSelector, useDispatch } from 'react-redux';
+import {closeAddNewRecipesPopup} from '../../store/RecipesStore'
 
 import './CreateNewRecipes.scss';
 
@@ -10,6 +11,8 @@ const CreateNewRecipes = () => {
 
   const [ingredients, setIngredients] = useState([1, 2, 3]);
   const [steps, setSteps] = useState([1, 2, 3]);
+  const dispatch = useDispatch();
+  const {showAddNewPopup} = useSelector(state => state.recipes)
 
   const addIngredient = () => {
     setIngredients((prevIngredients) => [...prevIngredients, '']);
@@ -20,10 +23,10 @@ const CreateNewRecipes = () => {
   };
 
   const stepAndIngredients = (state, setState, step) => {
-    console.log(state);
     return (
       <>
-        <div className="createNew__container-form-ing-container">
+        <div 
+          className="createNew__container-form-ing-container">
             {state.map((elem, index) => (
               <TextField
                 key={index}
@@ -45,15 +48,23 @@ const CreateNewRecipes = () => {
     )
   }
 
-
+  const closePopup = () => {
+    document.body.style.cssText = `
+      overflow-y: auto;
+    `
+    dispatch(closeAddNewRecipesPopup())
+  }
 
   return (
-    <div className='createNew'>
+    <div className='createNew'
+      style={showAddNewPopup ? {'display': 'block'} : {'display': 'none'}}
+      onClick={closePopup}>
       <div className='createNew__container'>
         <h2 className='createNew__container-title'>Створіть новий рецепт</h2>
         
         <form className='createNew__container-form'>
-          <span className='createNew__container-form-close'>✖</span>
+          <span className='createNew__container-form-close'
+            onClick={closePopup}>✖</span>
           <TextField 
             id="outlined-basic" 
             style={{'width': '100%', 'marginBottom': '20px'}}
