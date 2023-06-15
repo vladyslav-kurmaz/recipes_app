@@ -7,6 +7,7 @@ import './RecipesItem.scss';
 import noLikeIcon from '../../image/like.webp';
 import likeIcon from '../../image/love.webp';
 import star from '../../image/star.webp';
+import noImage from '../../image/noImage.webp'
 
 const RecipesItem = ({data}) => {
   const {activeId} = useSelector(state => state.user)
@@ -30,7 +31,7 @@ const RecipesItem = ({data}) => {
             {activeId ? <img className="mainPage__recipes-item-container-revue-like" src={like ? likeIcon : noLikeIcon} alt="Like recipes" /> : null}
           </div>
             <h2 className="mainPage__recipes-item-container-link-title">{title}</h2>
-            <img src={image} alt={title} className="mainPage__recipes-item-container-link-page"/>
+            <img src={image ? image : noImage} alt={title} className="mainPage__recipes-item-container-link-page"/>
             <p className="mainPage__recipes-item-container-link-description">{description}</p>
         
           <div className="mainPage__recipes-item-container-ingredients">

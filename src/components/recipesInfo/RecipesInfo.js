@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import noLikeIcon from '../../image/like.webp';
 import likeIcon from '../../image/love.webp';
 import star from '../../image/star.webp';
+import noImage from '../../image/noImage.webp';
+
 
 import './RecipesInfo.scss';
 
@@ -50,7 +52,7 @@ const RecipesInfo = () => {
               {activeId ? <img className="resipesInfo__revue-like" key={6} src={like ? likeIcon : noLikeIcon} alt="Like recipes" /> : null}
             </div>
             <div className="resipesInfo__container" key={7}>
-              <img className='resipesInfo__container-image' key={8} src={image} alt={title} />
+              <img className='resipesInfo__container-image' key={8} src={image ? image : noImage} alt={title} />
               <div className="resipesInfo__container-ingr" key={9}>
                 <h3 className="resipesInfo__container-ingr-ingredients" key={10}>Інгрідієнти</h3>
                 <ul className="resipesInfo__container-ingr-list" key={11}>
