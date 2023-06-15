@@ -9,8 +9,8 @@ const MyRecipesPage = () => {
 
   return (
     <main>
-      <LikeRecipes title={'Рецепти що сподобались:'} data={likeRecipes}/>
-      <LikeRecipes title={'Створені рецепти'} data={createRecipes}/>
+      <LikeRecipes title={'Рецепти що сподобались:'} data={likeRecipes} message={'Вподобаних рецептів ще нема'}/>
+      <LikeRecipes title={'Створені рецепти'} data={createRecipes} message={'Ви ще не сторювали рецепти'}/>
 
     </main>
   )

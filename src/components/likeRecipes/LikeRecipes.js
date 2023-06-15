@@ -4,14 +4,11 @@ import RecipesItem from '../recipesItem/RecipesItem';
 
 import './LikeRecipes.scss';
 
-const LikeRecipes = ({title, data}) => {
+const LikeRecipes = ({title, message, data}) => {
 
 
   const renderItem = (data) => {
-    console.log(data);
-    // return data?.map(item => {
-      return <RecipesItem data={data}/>
-    // })
+      return data.length === 0 ? <h2 className='likeRecipes__title'>{message}</h2> : <RecipesItem data={data}/>
   }
 
 
