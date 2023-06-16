@@ -1,77 +1,63 @@
+# Recipe Manager
 
-This project is built using MokApi. The backend structure consists of two endpoints: /users and /allRecipes.
+## Description
 
-/allRecipes endpoint is used for storing all the recipes.
-/users endpoint is used for storing user information and their recipes.
-When adding a photo, it is displayed as a preview but it doesn't work on the platform.
+This is a recipe management application that allows users to create, view, and manage their recipes. With this app, users can easily organize their favorite recipes, add new ones, and search for specific recipes based on various criteria.
 
-# Getting Started with Create React App
+## Key Features
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- Recipe Creation: Users can create new recipes by entering the recipe title, ingredients, instructions, and optional details such as cooking time and serving size.
+- Recipe Viewing: Users can view their saved recipes in a clean and organized interface, making it easy to browse and access recipes at any time.
+- Recipe Search: The app allows users to search for specific recipes based on keywords, ingredients, or recipe types, helping them find the recipe they need quickly.
+- Favorites: Users can mark recipes as favorites, making it convenient to access their most loved recipes with a single click.
+- Recipe Editing: Users have the flexibility to edit their existing recipes, enabling them to make modifications or improvements as needed.
+- Recipe Deletion: If a recipe is no longer needed, users can easily delete it from their collection to keep their recipe list up to date.
+- User-Friendly Interface: The application features an intuitive and user-friendly interface, ensuring a seamless and enjoyable recipe management experience.
 
-## Available Scripts
+## Technologies Used
 
-In the project directory, you can run:
+The Recipe Manager application is built using the following technologies:
 
-### `npm start`
+- React: A popular JavaScript library for building user interfaces.
+- Redux: A predictable state container for managing the application's state.
+- SCSS: A powerful CSS preprocessor that enhances the styling capabilities of the application.
+- Material UI: A UI component library that provides pre-designed, customizable UI elements.
+- A4: A lightweight and responsive CSS framework for creating responsive web applications.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Installation
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+To install and run the Recipe Manager application locally, follow these steps:
 
-### `npm test`
+1. Clone the repository:
+git clone https://github.com/vladyslav-kurmaz/recipes_app.git
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Navigate to the project directory:
+cd recipes_app
 
-### `npm run build`
+3. Install the dependencies:
+npm install
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. Start the development server:
+npm start
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+5. Open your web browser and visit `http://localhost:3000` to access the Recipe Manager application.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Contributing
 
-### `npm run eject`
+Contributions to the Recipe Manager are welcome! If you would like to contribute, please follow these steps:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Fork the repository.
+2. Create a new branch: `git checkout -b feature/your-feature-name`.
+3. Commit your changes: `git commit -am 'Add some feature'`.
+4. Push the branch to your fork: `git push origin feature/your-feature-name`.
+5. Submit a pull request.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Please ensure that your contributions adhere to the existing code conventions and include necessary tests.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## License
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+This project is licensed under the [License Name] - see the [LICENSE](./LICENSE) file for details.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Feel free to modify the content and structure of this README file to fit your project's specific details and requirements.
