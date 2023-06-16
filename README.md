@@ -1,3 +1,10 @@
+
+This project is built using MokApi. The backend structure consists of two endpoints: /users and /allRecipes.
+
+/allRecipes endpoint is used for storing all the recipes.
+/users endpoint is used for storing user information and their recipes.
+When adding a photo, it is displayed as a preview but it doesn't work on the platform.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
