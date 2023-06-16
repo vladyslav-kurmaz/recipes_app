@@ -4,6 +4,8 @@
 
 The Recipe Manager is an application designed to help users efficiently manage their recipes. It provides a convenient platform for creating, viewing, and organizing recipes. Users can easily store their favorite recipes, add new ones, and search for specific recipes based on different criteria. Whether you're a home cook or a professional chef, this app is your go-to solution for recipe management.
 
+If you want see my project go to https://recipes-app-sooty.vercel.app/
+
 ## Key Features
 
 - Recipe Creation: Users can create new recipes by entering the recipe title, ingredients, instructions, and optional details such as cooking time and serving size.
@@ -61,3 +63,5 @@ This project is licensed under the [License Name] - see the [LICENSE](./LICENSE)
 ---
 
 Feel free to modify the content and structure of this README file to fit your project's specific details and requirements.
+
+You have feedback write me vladyslavkurmaz@gmail.com
