@@ -19,7 +19,6 @@ const RecipesItem = ({data}) => {
   const {recipes} = useSelector(state => state.recipes)
 
   const likeChange = (recipe) => {
-    console.log(recipe);
     dispatch(changeLike(recipe._id))
 
     const cloneRecipe = JSON.parse(JSON.stringify(recipe))
@@ -29,7 +28,6 @@ const RecipesItem = ({data}) => {
 
     const recipeId = recipes.filter(item => item._id === recipe._id)
 
-    console.log(recipeId);
     const jsonRecipes = JSON.stringify(cloneRecipe)
 
     patchtRecipesInfo(jsonRecipes, recipeId[0].id)
@@ -44,7 +42,6 @@ const RecipesItem = ({data}) => {
       const jsonUser = JSON.stringify(cloneUser[0])
 
       patchtUsersInfo(jsonUser, cloneUser[0].id)
-        .then(res => console.log(res))
         .catch(error => console.error(error))
     } else {
 

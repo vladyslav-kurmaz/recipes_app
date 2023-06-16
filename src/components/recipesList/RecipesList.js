@@ -11,6 +11,7 @@ const RecipesList = () => {
   const {getAllRecipes} = RecipesService();
   const dispatch = useDispatch();
   const {recipes, curentFilter} = useSelector(store => store.recipes);
+  const {activeId} = useSelector(store => store.user);
 
 
   useEffect(() => {

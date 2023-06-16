@@ -69,7 +69,7 @@ const Login = ({login}) => {
                 }))
             .then((res) => {
                 localStorage.setItem('user', res[0]._id);
-                localStorage.setItem('mail', res[0].mail);
+                localStorage.setItem('mail', res[0].email);
                 localStorage.setItem('pass', res[0].pass);
                 return res;
             })
