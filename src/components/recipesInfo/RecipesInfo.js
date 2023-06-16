@@ -18,7 +18,7 @@ const RecipesInfo = () => {
 
   const selectRecip = () => {
     return recipes.map(item => {
-      console.log(item);
+
       if (item._id === recipesId) {
         const {title, rating, image, like, description, ingredients, instructions} = item
         

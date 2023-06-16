@@ -39,6 +39,9 @@ const recipesSlice = createSlice({
     },
     changeLike: (state, action) => {
       state.recipes.map(item => item._id === action.payload ? item.like = !item.like : item)
+    },
+    addRecipeInAllRecipes: (state, action) => {
+      state.recipes.push(action.payload)
     }
 
   }
@@ -55,5 +58,6 @@ export const {
   showAddNewRecipesPopup,
   closeAddNewRecipesPopup,
   changeFilter,
-  changeLike
+  changeLike,
+  addRecipeInAllRecipes
 } = actions;

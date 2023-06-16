@@ -29,12 +29,19 @@ const RecipesService = () => {
     return res;
   }
 
+  const postRecipesInfo = (body) => {
+    const res = request(`${_baceUrl}allRecipes`, 'POST', body);
+    return res;
+  }
+
+
   return {
     getAllRecipes,
     getUsersInfo,
     postUsersInfo,
     patchtUsersInfo,
-    patchtRecipesInfo
+    patchtRecipesInfo,
+    postRecipesInfo
   }
 }
 

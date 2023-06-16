@@ -26,7 +26,9 @@ const usersSlice = createSlice({
       } else {
         state.user[0].likeRecipes = state.user[0].likeRecipes.filter(item => item._id !== action.payload._id ? item : null)
       }
-      
+    },
+    addRecipeInUser: (state, action) => {
+      state.user[0].createRecipes.unshift(action.payload)
     }
 
   }
@@ -40,5 +42,6 @@ export const {
   changeUserStatus,
   changeUserSuccess,
   updateActiveUser,
-  addLikeRecipes
+  addLikeRecipes,
+  addRecipeInUser
 } = actions;

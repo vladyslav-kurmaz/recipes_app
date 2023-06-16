@@ -16,23 +16,24 @@ const RecipesItem = ({data}) => {
   const {patchtUsersInfo, patchtRecipesInfo} = RecipesService();
   const dispatch = useDispatch();
   const {activeId, user} = useSelector(state => state.user)
-
+  const {recipes} = useSelector(state => state.recipes)
 
   const likeChange = (recipe) => {
+    console.log(recipe);
     dispatch(changeLike(recipe._id))
-console.log(recipe);
+
     const cloneRecipe = JSON.parse(JSON.stringify(recipe))
     cloneRecipe.like = !cloneRecipe.like;
 
     dispatch(addLikeRecipes(cloneRecipe))
 
+    const recipeId = recipes.filter(item => item._id === recipe._id)
 
+    console.log(recipeId);
     const jsonRecipes = JSON.stringify(cloneRecipe)
 
-    
+    patchtRecipesInfo(jsonRecipes, recipeId[0].id)
 
-    patchtRecipesInfo(jsonRecipes, cloneRecipe.id)
-      .then(res => console.log(res))
       .catch(error => console.error(error))
 
     const cloneUser = JSON.parse(JSON.stringify(user));
@@ -40,22 +41,20 @@ console.log(recipe);
     if (cloneRecipe.like) {
       
       cloneUser[0].likeRecipes.unshift(cloneRecipe);
-      console.log(cloneUser);
       const jsonUser = JSON.stringify(cloneUser[0])
 
       patchtUsersInfo(jsonUser, cloneUser[0].id)
         .then(res => console.log(res))
         .catch(error => console.error(error))
     } else {
-      console.log(cloneUser[0].likeRecipes);
+
       const filtered = cloneUser[0].likeRecipes.filter(item => item._id !== recipe._id );
       cloneUser[0].likeRecipes = filtered
-      console.log(filtered);
-      console.log(cloneUser[0].likeRecipes);
+   
       const jsonUser = JSON.stringify(cloneUser[0])
 
       patchtUsersInfo(jsonUser, cloneUser[0].id)
-        .then(res => console.log(res))
+
         .catch(error => console.error(error))
     }
 
@@ -63,7 +62,7 @@ console.log(recipe);
   }
 
   return data?.map(item => {
-    const {_id, title, description, ingredients, rating, image, like} = item;
+    const {_id, title, description, ingredients, rating, image} = item;
     const activeLikeRecipes = user?.length === 1 ? user[0]?.likeRecipes?.filter(item => item._id === _id) : null
     const ingr = ingredients?.map((item, i) => {
       return (
