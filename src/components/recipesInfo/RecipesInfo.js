@@ -14,7 +14,6 @@ const RecipesInfo = () => {
   const {recipes} = useSelector(state => state.recipes);
   const {activeId} = useSelector(state => state.user);
   const {recipesId} = useParams();
-  console.log(recipesId);
 
   const selectRecip = () => {
     return recipes.map(item => {

@@ -136,7 +136,7 @@ const CreateNewRecipes = () => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       const imageUrl = URL.createObjectURL(file);
-      setNewResipe((prevRecipe) => ({ ...prevRecipe, image: imageUrl.slice(5)}));      
+      setNewResipe((prevRecipe) => ({ ...prevRecipe, image: imageUrl}));      
     }
   };
 
@@ -149,7 +149,19 @@ const CreateNewRecipes = () => {
 
     postRecipesInfo(newRecipeJson)
       .then(res => console.log(res))
-      .catch(e => console.error(e));
+      .catch(e => console.error(e))
+      .finally(() => setNewResipe({
+        _id: '',
+        title: '',
+        type: '',
+        like: false,
+        rating: Math.floor(Math.random() * 6),
+        image: '',
+        description: '',
+        ingredients: ['', '', ''],
+        instructions: ['', '', '']
+      }));
+
     console.log(newResipe);
     const cloneUser = JSON.parse(JSON.stringify(user[0]))
     cloneUser.createRecipes.unshift(newResipe)
@@ -250,7 +262,7 @@ const CreateNewRecipes = () => {
             <input type="file" style={{ display: 'none' }} onChange={(e) => handleImageUpload(e)} />
             
           </Button>
-          {newResipe.image && <img src={`blob:${newResipe.image}`} style={{'marginBottom': '20px', 'width': '300px', 'height': '200px', 'borderRadius': '20px'}}  alt="Selected" />}
+          {newResipe.image && <img src={`${newResipe.image}`} style={{'marginBottom': '20px', 'width': '300px', 'height': '200px', 'borderRadius': '20px'}}  alt="Selected" />}
 
 
           <Button 
