@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a recipe management application that allows users to create, view, and manage their recipes. With this app, users can easily organize their favorite recipes, add new ones, and search for specific recipes based on various criteria.
+The Recipe Manager is an application designed to help users efficiently manage their recipes. It provides a convenient platform for creating, viewing, and organizing recipes. Users can easily store their favorite recipes, add new ones, and search for specific recipes based on different criteria. Whether you're a home cook or a professional chef, this app is your go-to solution for recipe management.
 
 ## Key Features
 
