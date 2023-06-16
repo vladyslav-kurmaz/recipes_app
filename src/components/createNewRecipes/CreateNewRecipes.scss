@@ -1,8 +1,8 @@
 .createNew {
   position: absolute;
   top: 0;
-  width: 103vw;
-  height: 103vh;
+  width: 100vw;
+  height: 100vh;
 
   background-color: rgba(253, 167, 167, .7);
 
@@ -84,6 +84,6 @@
 @media screen and (max-width: 500px) {
   .createNew__container {
     max-width: 300px;
-    
+
   }
 }

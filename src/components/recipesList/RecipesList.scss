@@ -10,6 +10,55 @@
 
 }
 
+.dont__recipes{
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &-title {
+    font-size: 25px;
+    margin-bottom: 40px;
+  }
+
+  &-icon{
+    width: 120px;
+    height: 150px;
+    margin-bottom: 20px;
+  }
+
+  &-item-create {
+      max-width: 200px;
+      width: 100%;
+      height: 50px;
+      border: 2px solid #fd0000;
+      border-radius: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      font-size: 15px;
+      background-color: transparent;
+      color: #fd0000;
+      transition: all .4s;
+      outline: none;
+  
+      &:hover {
+        background-color: #fd0000;
+        color: #fff;
+        transition: all .4s;
+      }
+  
+      &.active {
+        background-color: #fd0000;
+        color: #fff;
+        transition: all .4s;
+      }
+  }
+}
+
 @media screen and (max-width: 800px) {
   .mainPage__recipes-list {
     justify-content: center;

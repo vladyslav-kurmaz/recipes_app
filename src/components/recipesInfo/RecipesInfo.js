@@ -33,7 +33,7 @@ const RecipesInfo = () => {
         ));
 
         const inst = instructions.map((item, i) => (
-          <li className='resipesInfo__list-step-item' key={i + 200}>
+          item === '' ? null : <li className='resipesInfo__list-step-item' key={i + 200}>
             <span className='resipesInfo__list-step-item-number'>{i + 1}</span>
             <p className="resipesInfo__list-step-item-description">
               {item}
@@ -61,7 +61,7 @@ const RecipesInfo = () => {
               </div>  
             </div>
             
-            <p className="resipesInfo__description" key={12}>{description ? description : 'Цей рецепт без опису'}</p>
+            <p className="resipesInfo__description" key={12}>{description ? description : <span style={{'color': '#ff4444', 'fontSize': '20px'}}>Цей рецепт без опису</span>}</p>
             
             <h3 className="resipesInfo__step" key={13}>Інструкції</h3>
             <ul className="resipesInfo__list-step" key={14}>

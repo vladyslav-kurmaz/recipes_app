@@ -68,7 +68,7 @@ const Login = ({login}) => {
                 return item.email === userLogin.email && item.pass === userLogin.pass
                 }))
             .then((res) => {
-                localStorage.setItem('user', res[0]._id);
+                localStorage.setItem('user', res[0].id);
                 localStorage.setItem('mail', res[0].email);
                 localStorage.setItem('pass', res[0].pass);
                 return res;

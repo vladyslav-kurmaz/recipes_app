@@ -7,6 +7,7 @@ import RecipesList from "../components/recipesList/RecipesList";
 
 
 const MainPage = () => {
+
   return (
     <div className="mainPage">
       <MainPageTitle/>

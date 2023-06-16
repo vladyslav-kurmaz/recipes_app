@@ -10,6 +10,7 @@ import CreateNewRecipes from '../createNewRecipes/CreateNewRecipes';
 import './App.scss';
 
 function App() {
+
   return (
     <Router>
       <Header/>
@@ -22,9 +23,7 @@ function App() {
         <Route exact path='/:userId/myrecipes' element={<MyRecipesPage/>}/>
         <Route exact path='/:userId/:recipesId' element={<RecipesPage/>}/>
         <Route exact path='/recipe/:recipesId' element={<RecipesPage/>}/>
-        
-        {/* <Route exact path='/:userId/myrecipes/:recipesId' element={<RecipesPage/>}/> */}
-        {/* <Route path='/:userId/myrecipes/:recipesId' element={<RecipesPage/>}/> */}
+
       </Routes>
 
     </Router>
