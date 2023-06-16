@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import {FormControl, TextField, MenuItem, InputLabel, Select, Button } from '@mui/material';
+// import ImageIcon from '@mui';
 import { useSelector, useDispatch } from 'react-redux';
 import {closeAddNewRecipesPopup} from '../../store/RecipesStore'
 
@@ -58,7 +59,8 @@ const CreateNewRecipes = () => {
   return (
     <div className='createNew'
       style={showAddNewPopup ? {'display': 'block'} : {'display': 'none'}}
-      onClick={closePopup}>
+      // onClick={closePopup}
+      >
       <div className='createNew__container'>
         <h2 className='createNew__container-title'>Створіть новий рецепт</h2>
         
@@ -110,6 +112,16 @@ const CreateNewRecipes = () => {
             style={{'marginBottom': '20px'}}
             disabled={false}>Contained</Button>
 
+
+          <Button
+                variant="contained"
+                component="label"
+                // startIcon={<ImageIcon />}
+                // onClick={handleClick}
+              >
+                Завантажити зображення
+                <input type="file" style={{ display: 'none' }} />
+              </Button>
 
         </form>
       </div>

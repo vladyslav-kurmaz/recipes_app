@@ -65,8 +65,7 @@ const Login = ({login}) => {
 
         getUsersInfo()
             .then(res => res.filter(item => {
-                console.log(res);
-                    return item.email === userLogin.email && item.pass === userLogin.pass
+                return item.email === userLogin.email && item.pass === userLogin.pass
                 }))
             .then((res) => {
                 localStorage.setItem('user', res[0]._id);

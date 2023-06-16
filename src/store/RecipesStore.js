@@ -36,6 +36,9 @@ const recipesSlice = createSlice({
     },
     changeFilter: (state, action) => {
       state.curentFilter = action.payload
+    },
+    changeLike: (state, action) => {
+      state.recipes.map(item => item._id === action.payload ? item.like = !item.like : item)
     }
 
   }
@@ -51,5 +54,6 @@ export const {
   changeRecipesError,
   showAddNewRecipesPopup,
   closeAddNewRecipesPopup,
-  changeFilter
+  changeFilter,
+  changeLike
 } = actions;

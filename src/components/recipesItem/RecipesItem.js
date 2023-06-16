@@ -1,6 +1,9 @@
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { changeLike } from "../../store/RecipesStore";
+import RecipesService from "../../service/RecipesService";
+import { addLikeRecipes } from "../../store/UsersStore";
 
 import './RecipesItem.scss';
 
@@ -10,16 +13,67 @@ import star from '../../image/star.webp';
 import noImage from '../../image/noImage.webp'
 
 const RecipesItem = ({data}) => {
-  const {activeId} = useSelector(state => state.user)
+  const {patchtUsersInfo, patchtRecipesInfo} = RecipesService();
+  const dispatch = useDispatch();
+  const {activeId, user} = useSelector(state => state.user)
+
+
+  const likeChange = (recipe) => {
+    dispatch(changeLike(recipe._id))
+console.log(recipe);
+    const cloneRecipe = JSON.parse(JSON.stringify(recipe))
+    cloneRecipe.like = !cloneRecipe.like;
+
+    dispatch(addLikeRecipes(cloneRecipe))
+
+
+    const jsonRecipes = JSON.stringify(cloneRecipe)
+
+    
+
+    patchtRecipesInfo(jsonRecipes, cloneRecipe.id)
+      .then(res => console.log(res))
+      .catch(error => console.error(error))
+
+    const cloneUser = JSON.parse(JSON.stringify(user));
+
+    if (cloneRecipe.like) {
+      
+      cloneUser[0].likeRecipes.unshift(cloneRecipe);
+      console.log(cloneUser);
+      const jsonUser = JSON.stringify(cloneUser[0])
+
+      patchtUsersInfo(jsonUser, cloneUser[0].id)
+        .then(res => console.log(res))
+        .catch(error => console.error(error))
+    } else {
+      console.log(cloneUser[0].likeRecipes);
+      const filtered = cloneUser[0].likeRecipes.filter(item => item._id !== recipe._id );
+      cloneUser[0].likeRecipes = filtered
+      console.log(filtered);
+      console.log(cloneUser[0].likeRecipes);
+      const jsonUser = JSON.stringify(cloneUser[0])
+
+      patchtUsersInfo(jsonUser, cloneUser[0].id)
+        .then(res => console.log(res))
+        .catch(error => console.error(error))
+    }
+
+    
+  }
+
   return data?.map(item => {
     const {_id, title, description, ingredients, rating, image, like} = item;
-    const ingr = ingredients.map((item, i) => {
+    const activeLikeRecipes = user?.length === 1 ? user[0]?.likeRecipes?.filter(item => item._id === _id) : null
+    const ingr = ingredients?.map((item, i) => {
       return (
         <li className="mainPage__recipes-item-container-ingredients-list-item" key={i}>        
           <span className="recipes-item-container-ingredients-list-item-text">{item}</span>
         </li>
       )
     })
+
+
 
     return (
       <li className="mainPage__recipes-item" key={_id}>
@@ -28,7 +82,7 @@ const RecipesItem = ({data}) => {
             <span className="mainPage__recipes-item-container-revue-rating">{rating}
               <img className="mainPage__recipes-item-container-revue-rating-star" src={star} alt="rating" />
             </span>
-            {activeId ? <img className="mainPage__recipes-item-container-revue-like" src={like ? likeIcon : noLikeIcon} alt="Like recipes" /> : null}
+            {activeId ? <img className="mainPage__recipes-item-container-revue-like" onClick={() => likeChange(item)} src={activeLikeRecipes[0]?.like ? likeIcon : noLikeIcon} alt="Like recipes" /> : null}
           </div>
             <h2 className="mainPage__recipes-item-container-link-title">{title}</h2>
             <img src={image ? image : noImage} alt={title} className="mainPage__recipes-item-container-link-page"/>

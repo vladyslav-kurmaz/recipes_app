@@ -19,10 +19,22 @@ const RecipesService = () => {
     return res;
   }
 
+  const patchtUsersInfo = (body, id) => {
+    const res = request(`${_baceUrl}users/${id}`, 'PUT', body);
+    return res;
+  }
+
+  const patchtRecipesInfo = (body, id) => {
+    const res = request(`${_baceUrl}allRecipes/${id}`, 'PUT', body);
+    return res;
+  }
+
   return {
     getAllRecipes,
     getUsersInfo,
-    postUsersInfo
+    postUsersInfo,
+    patchtUsersInfo,
+    patchtRecipesInfo
   }
 }
 

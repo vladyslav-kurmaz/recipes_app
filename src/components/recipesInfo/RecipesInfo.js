@@ -21,6 +21,7 @@ const RecipesInfo = () => {
       console.log(item);
       if (item._id === recipesId) {
         const {title, rating, image, like, description, ingredients, instructions} = item
+        
         const ingr = ingredients.map((item, i) => (
           <li className="resipesInfo__container-ingr-list-item" key={i + 20}>
             {/* <div className="mainPage__recipes-item-container-ingredients-list-item-input">

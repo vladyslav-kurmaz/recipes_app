@@ -18,6 +18,15 @@ const usersSlice = createSlice({
     },
     updateActiveUser: (state, action) => {
       state.activeId = action.payload
+    },
+    addLikeRecipes: (state, action) => {
+      state.user[0].createRecipes.map(item => item._id === action.payload.id ? item.like = action.payload.like : null)
+      if (action.payload.like) {
+        state.user[0].likeRecipes.unshift(action.payload)
+      } else {
+        state.user[0].likeRecipes = state.user[0].likeRecipes.filter(item => item._id !== action.payload._id ? item : null)
+      }
+      
     }
 
   }
@@ -30,5 +39,6 @@ export default reducer;
 export const {
   changeUserStatus,
   changeUserSuccess,
-  updateActiveUser
+  updateActiveUser,
+  addLikeRecipes
 } = actions;
