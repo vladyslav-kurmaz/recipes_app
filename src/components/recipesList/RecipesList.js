@@ -13,6 +13,7 @@ const RecipesList = () => {
   const {getAllRecipes} = RecipesService();
   const dispatch = useDispatch();
   const {recipes, curentFilter} = useSelector(store => store.recipes);
+  const {activeId} = useSelector(store => store.user);
 
   useEffect(() => {
     dispatch(changeRecipesLoading())
@@ -42,9 +43,9 @@ const RecipesList = () => {
       <div className="dont__recipes">
         <h2 className="dont__recipes-title">У цій категорії ще нема рецептів</h2>
         <img src={recipeIcon} alt='recipe icon'  className="dont__recipes-icon"/>
-        <button 
+        {activeId ? <button 
             className='dont__recipes-item-create'
-            onClick={openPopup}>Створити рецепт</button>
+            onClick={openPopup}>Створити рецепт</button> : null}
       </div> 
       : <ul className="mainPage__recipes-list">
               {/* {spiner} */}
