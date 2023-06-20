@@ -3,6 +3,7 @@ import RecipesItem from "../recipesItem/RecipesItem";
 import RecipesService from "../../service/RecipesService";
 import { useDispatch, useSelector } from "react-redux";
 import {changeRecipesLoading, changeRecipesSuccess, changeRecipesError, showAddNewRecipesPopup} from '../../store/RecipesStore'
+import { changeUserSuccess, updateActiveUser, changeUserStatus } from "../../store/UsersStore";
 import Spinner from "../spiner/spiner";
 
 import recipeIcon from '../../image/recipe.webp'
@@ -10,7 +11,7 @@ import recipeIcon from '../../image/recipe.webp'
 import './RecipesList.scss';
 
 const RecipesList = () => {
-  const {getAllRecipes} = RecipesService();
+  const {getAllRecipes, getOneUserInfo} = RecipesService();
   const dispatch = useDispatch();
   const {recipes, curentFilter} = useSelector(store => store.recipes);
   const {activeId} = useSelector(store => store.user);
@@ -20,6 +21,15 @@ const RecipesList = () => {
     getAllRecipes()
       .then(recipes => dispatch(changeRecipesSuccess(recipes)))
       .catch(dispatch(changeRecipesError()))
+
+    if (!activeId && localStorage.getItem('user')) {
+        getOneUserInfo(localStorage.getItem('user'))
+        .then((res) => {
+            dispatch(changeUserSuccess([res]));
+            dispatch(updateActiveUser(res._id));
+            dispatch(changeUserStatus('idle'));
+        } )
+    }
     // eslint-disable-next-line 
   }, [])
 

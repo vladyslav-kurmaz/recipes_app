@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import {FormControl, TextField, MenuItem, InputLabel, Select, Button } from '@mui/material';
 import { v4 as uuidv4 } from "uuid";
+import { Formik, Form, Field, ErrorMessage, useFormikContext } from 'formik';
+import * as Yup from 'yup';
 
 import { useSelector, useDispatch } from 'react-redux';
 import {closeAddNewRecipesPopup, addRecipeInAllRecipes, changeRecipesSuccess} from '../../store/RecipesStore';
@@ -14,8 +16,10 @@ import plusIcon from '../../image/plus.webp'
 const CreateNewRecipes = () => {
   const {postRecipesInfo, patchtUsersInfo, getAllRecipes, getUsersInfo} = RecipesService();
   const dispatch = useDispatch();
-  const {showAddNewPopup, recipes} = useSelector(state => state.recipes)
+  const {showAddNewPopup} = useSelector(state => state.recipes)
   const {user, activeId} = useSelector(state => state.user);
+  
+
   const [newResipe, setNewResipe] = useState({
     _id: '',
     title: '',
@@ -27,6 +31,8 @@ const CreateNewRecipes = () => {
     ingredients: ['', '', ''],
     instructions: ['', '', '']
   })
+
+  
 
   const addIngredient = () => {
     setNewResipe((state) => {
@@ -68,30 +74,42 @@ const CreateNewRecipes = () => {
     }
   }
 
-  const stepAndIngredients = (state, setState, step) => {
+  const stepAndIngredients = (values, setState, step) => {
     return (
       <>
         <div 
           className="createNew__container-form-ing-container">
-            {state.map((elem, index) => (
-              <TextField
-                key={index}
-                onChange={(e) => addIngrOrStepToState(e, step, setNewResipe, index)}
-                id={`outlined-basic-${index}${step}`}
-                style={{ width: '100%', marginBottom: '20px' }}
-                label={`${index + 1}`}
-                multiline={step ? true : false} 
-                variant="outlined"
-                value={step ? newResipe.instructions[index] : newResipe.ingredients[index]}
-              />
-              ))}
-          </div>
+            {values?.map((elem, index) => (
+              <label className='createNew__container-form-ing-container-label'>
 
-          <img 
-            className='createNew__container-form-plus' 
-            src={plusIcon} 
-            alt="add ingridiens"
-            onClick={setState} />
+                <Field
+                  as={TextField}
+                  key={step ? index + 100 : index + 200}
+                  name={step ? `instructions[${index}]` : `ingredients[${index}]`}
+                  id={step ? `instructions${index}` : `ingredients${index}`}
+                  style={{ 'width': '100%', 'marginBottom': '40px', 'position': 'relative' }}
+                  label={`${index + 1}`}
+                  multiline={step ? true : false} 
+                  variant="outlined"
+                  onChange={(e) => {
+                    values[index] = e.target.value
+                    addIngrOrStepToState(e, false, setNewResipe, index)
+                  }}
+                />
+                <ErrorMessage name={step ? `instructions[${index}]` : `ingredients[${index}]`} className='error-validation-ingr-step' component="div" />
+                
+              </label>
+              ))}
+        </div>
+
+        <img 
+          className='createNew__container-form-plus' 
+          src={plusIcon} 
+          key={false ? 1 : 2}
+          alt="add ingridiens"
+          onClick={() => {
+            false ? addStep() : addIngredient()
+          }} />
       </>
     )
   }
@@ -104,8 +122,10 @@ const CreateNewRecipes = () => {
   }
 
   const addAllIfoRecipe = (e) => {
+
     switch(e.target.name) {
       case 'title':
+
         return setNewResipe(state => {
           return {
             ...state,
@@ -113,7 +133,7 @@ const CreateNewRecipes = () => {
             title: e.target.value
           }
         });
-      case 'select-type':
+      case 'type':
         return setNewResipe(state => {
           return {
             ...state,
@@ -136,12 +156,13 @@ const CreateNewRecipes = () => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       const imageUrl = URL.createObjectURL(file);
+      console.log(imageUrl);
       setNewResipe((prevRecipe) => ({ ...prevRecipe, image: imageUrl.slice(5)}));      
     }
   };
 
-  const createNewRecipes = (e) => {
-    e.preventDefault();
+  const createNewRecipes = (values, actions) => {
+     
     dispatch(addRecipeInAllRecipes(newResipe))
     dispatch(addRecipeInUser(newResipe))
 
@@ -150,17 +171,31 @@ const CreateNewRecipes = () => {
     postRecipesInfo(newRecipeJson)
       .then(res => console.log(res))
       .catch(e => console.error(e))
-      .finally(() => setNewResipe({
-        _id: '',
-        title: '',
-        type: '',
-        like: false,
-        rating: Math.floor(Math.random() * 6),
-        image: '',
-        description: '',
-        ingredients: ['', '', ''],
-        instructions: ['', '', '']
-      }));
+      .finally(() => {
+
+        actions.setSubmitting(false);
+        actions.resetForm({
+          values: {
+            title: '',
+            type: '',
+            image: '',
+            description: '',
+            ingredients: ['', '', ''],
+            instructions: ['', '', '']
+          }})
+
+        setNewResipe({
+          _id: '',
+          title: '',
+          type: '',
+          like: false,
+          rating: Math.floor(Math.random() * 6),
+          image: '',
+          description: '',
+          ingredients: ['', '', ''],
+          instructions: ['', '', '']
+        })
+      });
 
 
     const cloneUser = JSON.parse(JSON.stringify(user[0]))
@@ -169,8 +204,6 @@ const CreateNewRecipes = () => {
     const userJson = JSON.stringify(cloneUser)
 
     patchtUsersInfo(userJson, cloneUser.id)
-
-    closePopup();
 
     getUsersInfo()
       .then(res => res.filter(item => {
@@ -185,9 +218,36 @@ const CreateNewRecipes = () => {
       })
       .catch(e => console.error(e))
 
-    getAllRecipes()
-      .then(res => dispatch(changeRecipesSuccess(res)))
+    closePopup();
   }
+
+  const validationSchema = Yup.object({
+    title: Yup.string()
+              .min(3, 'Назва рецепту має бути мінімум 3 символи')
+              .required('Назва рецепту обов\'язкова'),
+
+    type: Yup.string()
+            .required('Виберіть тип страви'),
+
+    description: Yup.string()
+                    .min(10, 'Опис має бути мінімум 10 символи')
+                    .required('Напишіть опис рецепту'),
+
+    ingredients: Yup.array()
+                  .of(
+                    Yup.string()
+                      .min(2, 'Мінімальна довжина інгредієнта 2 символів')
+                      .required('Інгредієнт обов\'язковий')
+                  ),
+
+    instructions: Yup.array()
+                    .of(
+                      Yup.string()
+                        .min(10, 'Мінімальна довжина інструкції 10 символів')
+                        .required('Інструкція обов\'язкова')
+                    )
+  
+  });
 
   return (
     <div className='createNew'
@@ -196,80 +256,123 @@ const CreateNewRecipes = () => {
       <div className='createNew__container'>
         <h2 className='createNew__container-title'>Створіть новий рецепт</h2>
         
-        <form 
-          className='createNew__container-form'
-          onSubmit={createNewRecipes}>
-          <span 
-            className='createNew__container-form-close'
-            onClick={closePopup}>✖</span>
+        <Formik
+          key={1}
+          initialValues={{ title: newResipe.title, type: newResipe.type, description: newResipe.description, ingredients: newResipe.ingredients, instructions: newResipe.instructions, image: newResipe.image}}
+          validationSchema={validationSchema}
+          onSubmit={(values, actions) => {
+            createNewRecipes(values, actions)
+          }}>
 
-          <TextField 
-            id="outlined-title"
-            name="title"
-            style={{'width': '100%', 'marginBottom': '20px'}}
-            label="Назва рецепту" 
-            variant="outlined" 
-            onChange={(e) => addAllIfoRecipe(e)}
-            value={newResipe.title} />
-
-          <FormControl 
-            fullWidth 
-            style={{'width': '100%', 'marginBottom': '20px'}}>
-            <InputLabel id="demo-simple-select-label">Тип</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="select-type"
-              name="select-type"
-              value={newResipe.type}
-              label="Age"
-              onChange={(e) => addAllIfoRecipe(e)}
+          {({values, resetForm}) => (
+            <Form
+              key={2}
+              className='createNew__container-form'
               >
-              <MenuItem value={"first"}>Перші страви</MenuItem>
-              <MenuItem value={"second"}>Другі страви</MenuItem>
-              <MenuItem value={"salad"}>Салати</MenuItem>
-              <MenuItem value={"desserts"}>Десерти</MenuItem>
-            </Select>
-          </FormControl>
+              <span 
+                className='createNew__container-form-close'
+                onClick={closePopup}>✖</span>
 
-          <TextField 
-            id="outlined-description" 
-            name="description"
-            style={{'width': '100%', 'marginBottom': '20px'}}
-            label="Опис рецепту" 
-            multiline
-            variant="outlined"
-            onChange={(e) => addAllIfoRecipe(e)}
-            value={newResipe.description}  />
+              <Field
+                key={4}
+                as={TextField} 
+                id="outlined-title"
+                name="title"
+                style={{'width': '100%', 'marginBottom': '20px'}}
+                label="Назва рецепту" 
+                variant="outlined" 
+                onChange={(e) => {
+                  values.title = e.target.value
+                  addAllIfoRecipe(e)
+                }}
+              />
 
-          <h3 className='createNew__container-form-ing'>Інгредієнти</h3>
+              <ErrorMessage key={5} name="title" className='error-validation' component="div" />
 
-          {stepAndIngredients(newResipe.ingredients, addIngredient, false)}
+              <FormControl 
+                key={6}
+                fullWidth 
+                style={{'width': '100%', 'marginBottom': '20px'}}>
+                <InputLabel key={7} id="demo-simple-select-label">Тип</InputLabel>
+                <Field
+                  key={8}
+                  as={Select}
+                  id="select-type"
+                  name="type"
+                  label="Тип"
 
-          <h3 className='createNew__container-form-step'>Інструкції</h3>
+                  onChange={(e) => {
+                    values.type = e.target.value
+                    addAllIfoRecipe(e)
+                  }}>
 
-          {stepAndIngredients(newResipe.instructions, addStep, true)}
+                  <MenuItem key={9} value={"first"}>Перші страви</MenuItem>
+                  <MenuItem key={10} value={"second"}>Другі страви</MenuItem>
+                  <MenuItem key={11} value={"salad"}>Салати</MenuItem>
+                  <MenuItem key={12} value={"desserts"}>Десерти</MenuItem>
+                  
+                </Field>
+              </FormControl>
 
-          <Button
-            variant="contained"
-            component="label"
-            id='add-file'
-            name='add-file'
+              <ErrorMessage key={22} name="type" className='error-validation' component="div" />
+              
+        
+              <Field 
+                key={13}
+                as={TextField} 
+                id="outlined-description" 
+                name="description"
+                style={{'width': '100%', 'marginBottom': '20px'}}
+                label="Опис рецепту" 
+                multiline
+                variant="outlined"
+                onChange={(e) => {
+                  values.description = e.target.value
+                  addAllIfoRecipe(e)
+                }}
+              />
 
-            style={{'marginBottom': '20px'}}>
-            Завантажити зображення
-            <input type="file" style={{ display: 'none' }} onChange={(e) => handleImageUpload(e)} />
-            
-          </Button>
-          {newResipe.image && <img src={`blob:${newResipe.image}`} style={{'marginBottom': '20px', 'width': '300px', 'height': '200px', 'borderRadius': '20px'}}  alt="Selected" />}
+              <ErrorMessage key={14} name="description" className='error-validation' component="div" />
+
+              <h3 className='createNew__container-form-ing'>Інгредієнти</h3>
+
+              
+
+              {showAddNewPopup ? stepAndIngredients(values?.ingredients, addIngredient, false) : null}
+
+              <h3 className='createNew__container-form-step'>Інструкції</h3>
+
+              {showAddNewPopup ? stepAndIngredients(values?.instructions, addStep, true) : null}
+
+              <Button
+                key={17}
+                variant="contained"
+                component="label"
+                id='add-file'
+                name='add-file'
+                style={{'marginBottom': '20px'}}
+                onClick={resetForm}>
+                Завантажити зображення
+                <input
+                  type="file" style={{ display: 'none' }} 
+                  onChange={(e) => {
+                    handleImageUpload(e)
+
+                  }} />
+              </Button>
+              {newResipe.image && <img src={`blob:${newResipe.image}`} style={{'marginBottom': '20px', 'width': '300px', 'height': '200px', 'borderRadius': '20px'}}  alt="Selected" />}
 
 
-          <Button 
-            variant="contained"
-            style={{'marginBottom': '20px'}}
-            type='submit'
-            disabled={false}>Створити</Button>
+              <Button 
+                key={21}
+                variant="contained"
+                style={{'marginBottom': '20px'}}
+                type='submit'
+                disabled={false}>Створити</Button>
 
-        </form>
+            </Form>
+          )}
+        </Formik>
       </div>
     </div>
   )

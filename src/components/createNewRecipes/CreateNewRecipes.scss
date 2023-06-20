@@ -69,6 +69,28 @@
   }
 }
 
+.createNew__container-form-ing-container {
+  &-label {
+    position: relative;
+  }
+  
+}
+
+.error-validation {
+  margin-top: 5px;
+  margin-bottom: 15px;
+  color: #ff4444;
+}
+
+.error-validation-ingr-step {
+  position: absolute;
+  top: 60px;
+
+  margin-top: 5px;
+  margin-bottom: 15px;
+  color: #ff4444;
+}
+
 ::-webkit-scrollbar {
   width: 10px; /* ширина для вертикального скролла */
   background-color: #c2c2c2;

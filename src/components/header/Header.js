@@ -26,7 +26,7 @@ const Header = () => {
   }
 
   const logout = () => {
-    dispatch(updateActiveUser(null));
+    dispatch(updateActiveUser(''));
     dispatch(changeUserSuccess(null));
 
   }
