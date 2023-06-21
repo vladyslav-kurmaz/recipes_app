@@ -9,7 +9,6 @@ import './Header.scss'
 const Header = () => {
   const dispatch = useDispatch()
   const {activeId} = useSelector(state => state.user);
-  const {showAddNewPopup} = useSelector(state => state.recipes);
   const NavItem = ({to, label}) => {
     const match = useMatch(to);
 

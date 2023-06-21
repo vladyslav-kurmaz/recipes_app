@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import noLikeIcon from '../../image/like.webp';
@@ -10,7 +10,6 @@ import noImage from '../../image/noImage.webp';
 import './RecipesInfo.scss';
 
 const RecipesInfo = () => {
-  const dispatch = useDispatch();
   const {recipes} = useSelector(state => state.recipes);
   const {activeId} = useSelector(state => state.user);
   const {recipesId} = useParams();

@@ -1,11 +1,11 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import {FormControl, TextField, MenuItem, InputLabel, Select, Button } from '@mui/material';
 import { v4 as uuidv4 } from "uuid";
-import { Formik, Form, Field, ErrorMessage, useFormikContext } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 import { useSelector, useDispatch } from 'react-redux';
-import {closeAddNewRecipesPopup, addRecipeInAllRecipes, changeRecipesSuccess} from '../../store/RecipesStore';
+import {closeAddNewRecipesPopup, addRecipeInAllRecipes} from '../../store/RecipesStore';
 import { addRecipeInUser, changeUserStatus, changeUserSuccess } from '../../store/UsersStore';
 import RecipesService from '../../service/RecipesService';
 
@@ -14,7 +14,7 @@ import './CreateNewRecipes.scss';
 import plusIcon from '../../image/plus.webp'
 
 const CreateNewRecipes = () => {
-  const {postRecipesInfo, patchtUsersInfo, getAllRecipes, getUsersInfo} = RecipesService();
+  const {postRecipesInfo, patchtUsersInfo, getUsersInfo} = RecipesService();
   const dispatch = useDispatch();
   const {showAddNewPopup} = useSelector(state => state.recipes)
   const {user, activeId} = useSelector(state => state.user);
@@ -156,7 +156,6 @@ const CreateNewRecipes = () => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
       const imageUrl = URL.createObjectURL(file);
-      console.log(imageUrl);
       setNewResipe((prevRecipe) => ({ ...prevRecipe, image: imageUrl.slice(5)}));      
     }
   };
