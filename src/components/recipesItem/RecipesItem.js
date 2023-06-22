@@ -59,7 +59,10 @@ const RecipesItem = ({data}) => {
   return data?.map(item => {
     const {_id, title, description, ingredients, rating, image} = item;
     const activeLikeRecipes = user?.length === 1 ? user[0]?.likeRecipes?.filter(item => item._id === _id) : null
+    const titleSlice = title.length > 30 ? `${title.slice(0, 31)}...`: title;
+    const descriptionSlice = description?.length > 30 ? `${description?.slice(0, 31)}...`: description;
     // const showLike = activeId ? <img className="mainPage__recipes-item-container-revue-like" onClick={() => likeChange(item)} src={activeLikeRecipes[0]?.like ? likeIcon : noLikeIcon} alt="Like recipes" /> : null;
+    console.log(titleSlice);
     const ingr = ingredients?.map((item, i) => {
       return (
         <li className="mainPage__recipes-item-container-ingredients-list-item" key={i}>        
@@ -79,9 +82,9 @@ const RecipesItem = ({data}) => {
             </span>
             {user ? <img className="mainPage__recipes-item-container-revue-like" onClick={() => likeChange(item)} src={activeLikeRecipes[0]?.like ? likeIcon : noLikeIcon} alt="Like recipes" /> : null}
           </div>
-            <h2 className="mainPage__recipes-item-container-link-title">{title}</h2>
+            <h2 className="mainPage__recipes-item-container-link-title">{titleSlice}</h2>
             <img src={image ? image : noImage} alt={title} className="mainPage__recipes-item-container-link-page"/>
-            <p className="mainPage__recipes-item-container-link-description">{description}</p>
+            <p className="mainPage__recipes-item-container-link-description">{descriptionSlice}</p>
         
           <div className="mainPage__recipes-item-container-ingredients">
             <h3 className="mainPage__recipes-item-container-ingredients-title">Інгрідієнти</h3>

@@ -268,7 +268,7 @@ const Login = ({login}) => {
                     className="auto__form-login " 
                     type="email" 
                     id='email' 
-                    placeholder="Логін"
+                    placeholder="Пошта"
                     onChange={addInfoNewUser}
                     required
                     style={styleFormInput('mail', newUser.mail)}/>
