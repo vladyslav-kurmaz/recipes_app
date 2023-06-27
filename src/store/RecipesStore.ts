@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { IRecipesInitialState } from '../types/interfaces';
 
-const initialState = {
-  recipes: [],
+const initialState: IRecipesInitialState = {
+  recipes: null,
   recipesLoadingStatus: 'idle',
   showAddNewPopup: false,
   curentFilter: 'all',
@@ -38,10 +39,10 @@ const recipesSlice = createSlice({
       state.curentFilter = action.payload
     },
     changeLike: (state, action) => {
-      state.recipes.map(item => item._id === action.payload ? item.like = !item.like : item)
+      state.recipes?.map(item => item._id === action.payload ? item.like = !item.like : item)
     },
     addRecipeInAllRecipes: (state, action) => {
-      state.recipes.push(action.payload)
+      state.recipes?.push(action.payload)
     }
 
 

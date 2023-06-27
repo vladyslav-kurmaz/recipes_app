@@ -62,7 +62,6 @@ const RecipesItem = ({data}) => {
     const titleSlice = title.length > 30 ? `${title.slice(0, 31)}...`: title;
     const descriptionSlice = description?.length > 30 ? `${description?.slice(0, 31)}...`: description;
     // const showLike = activeId ? <img className="mainPage__recipes-item-container-revue-like" onClick={() => likeChange(item)} src={activeLikeRecipes[0]?.like ? likeIcon : noLikeIcon} alt="Like recipes" /> : null;
-    console.log(titleSlice);
     const ingr = ingredients?.map((item, i) => {
       return (
         <li className="mainPage__recipes-item-container-ingredients-list-item" key={i}>        
